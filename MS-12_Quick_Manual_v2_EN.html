@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MS-12 Quick Manual</title>
+<style>
+  @page { size: A4; margin: 0; }
+  :root { --ink: #1d1d1f; --muted: #55565a; --rule: #c9c2a6; --accent: #d62828; --tint: #f4f1e6; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #fff; color: var(--ink);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 9.6pt; line-height: 1.5; }
+  .page { width: 210mm; height: 297mm; padding: 16mm 17mm 14mm; position: relative; page-break-after: always; overflow: hidden; }
+  .page:last-child { page-break-after: auto; }
+  h1 { font-size: 21pt; margin: 0 0 3mm; padding-bottom: 2mm; border-bottom: 1.5px solid var(--rule); letter-spacing: -0.2px; }
+  h2 { font-size: 15pt; margin: 6mm 0 2.5mm; padding-bottom: 1.5mm; border-bottom: 1.5px solid var(--rule); }
+  h3 { font-size: 10.5pt; margin: 4mm 0 1.5mm; }
+  p { margin: 0 0 2mm; }
+  .lead { color: var(--muted); }
+  figure { margin: 3mm 0 3.5mm; text-align: center; }
+  figure img { max-width: 100%; max-height: 112mm; border-radius: 2mm; box-shadow: 0 0 0 1px #d9d4c2; }
+  figure.short img { max-height: 86mm; }
+  figure.tall img { max-height: 132mm; }
+  figure.mini img { max-height: 64mm; }
+  .pair { display: flex; gap: 4mm; justify-content: center; margin: 3mm 0; }
+  .pair img { max-height: 100mm; max-width: 100%; border-radius: 2mm; box-shadow: 0 0 0 1px #d9d4c2; }
+  ol.call { list-style: none; padding: 0; margin: 0; }
+  ol.call li { position: relative; padding-left: 7mm; margin-bottom: 1.4mm; }
+  ol.call li::before { content: attr(data-n); position: absolute; left: 0; top: 0.35mm; width: 4.6mm; height: 4.6mm;
+    border-radius: 50%; background: var(--accent); color: #fff; font-weight: 700; font-size: 7.6pt; line-height: 4.6mm; text-align: center; }
+  b.k { font-weight: 700; }
+  .note { background: var(--tint); border-left: 3px solid #b9ad80; padding: 2mm 3mm; margin: 3mm 0; font-size: 9pt; }
+  .steps { counter-reset: s; list-style: none; padding: 0; margin: 2mm 0; }
+  .steps li { counter-increment: s; position: relative; padding: 2.2mm 3mm 2.2mm 12mm; margin-bottom: 1.5mm; background: var(--tint); border-radius: 1.5mm; }
+  .steps li::before { content: counter(s); position: absolute; left: 3mm; top: 2.4mm; width: 6mm; height: 6mm; border-radius: 50%;
+    background: var(--ink); color: #fff; text-align: center; line-height: 6mm; font-weight: 700; }
+  .steps li b { display: block; }
+  .steps li span { color: var(--muted); font-size: 9pt; }
+  .arrow { text-align: center; color: #9a927a; margin: -1mm 0 0.5mm; font-size: 9pt; }
+  table { border-collapse: collapse; width: 100%; font-size: 8.8pt; margin: 2mm 0 3mm; }
+  th, td { border-bottom: 1px solid #e3dfd0; padding: 1.3mm 2mm; text-align: left; vertical-align: top; }
+  th { background: var(--tint); font-weight: 700; }
+  .cols { display: flex; gap: 6mm; }
+  .cols > div { flex: 1; }
+  .footer { position: absolute; bottom: 8mm; left: 0; right: 0; text-align: center; color: #8b8676; font-size: 8pt; }
+  .cover-sub { font-size: 11pt; color: var(--muted); margin-bottom: 4mm; }
+  code { font-family: "SF Mono", Menlo, monospace; font-size: 8.4pt; background: #f1efe8; padding: 0 1mm; border-radius: 1mm; }
+</style>
+</head>
+<body>
+
+<!-- 1 -->
+<section class="page">
+  <h1>How to Use MS-12</h1>
+  <p class="cover-sub">MS-12 is a sampler and step/realtime sequencer for iPhone, played in landscape orientation.</p>
+  <p>Making a track follows this flow:</p>
+  <ol style="margin:0 0 2mm 5mm; padding:0;">
+    <li>Record sounds on the <b>Sampling</b> screen (microphone, or <b>App Audio</b> resampling).</li>
+    <li>Edit them on the <b>Edit Sample</b> screen (trim, fade, slice, etc.).</li>
+    <li>Assign the edited sounds to pads and set how they play (<b>Assign</b>).</li>
+    <li>Record a sequence on the TOP screen with <b>REC</b>.</li>
+    <li>Fine-tune the recorded notes on the <b>Edit Seq</b> screen.</li>
+    <li>Optionally add effects to pads (<b>Effect</b>).</li>
+    <li>Balance the levels in <b>Mix</b> and write the pattern out with <b>Export</b>.</li>
+  </ol>
+  <p>Each function is explained on the following pages.</p>
+
+  <h2>TOP Screen</h2>
+  <figure class="short"><img src="images/top.jpg" alt="TOP screen"></figure>
+  <ol class="call">
+    <li data-n="1"><b>LCD</b> — Shows the current <b>PATTERN</b> (tap to switch patterns), the playback <b>POSITION</b> (bar.beat.16th) and the <b>BPM</b> (− / + buttons, 40–240; long-press the number to type a value). <b>SAVE</b> / <b>LOAD</b> save and recall projects.</li>
+    <li data-n="2"><b>Function buttons</b> — Open Sampling, Assign, Song, Mix, Edit Sample, Edit Seq, Effect and Export. The selected function is shown in the left area (or full screen for Mix, Edit Sample and Edit Seq; Assign keeps the pads on the left and shows the settings on the right). While resampling, <b>Sampling</b> blinks red and the other function buttons are disabled.</li>
+    <li data-n="3"><b>BANK / mute / solo</b> — Switch the pad bank (A–D), and mute or solo individual pads.</li>
+    <li data-n="4"><b>Multi level / Multi Pitch</b> — Spread one pad across all 16 pads at 16 velocity levels or 16 pitches.</li>
+    <li data-n="5"><b>Transport</b> — <b>main</b> returns to this TOP screen, <b>undo</b> reverts the last action, <b>note rep</b> turns note repeat on, <b>play / stop</b> starts and stops playback (it also works on the Edit Sample and Edit Seq screens), and the red button is <b>REC</b> (realtime recording).</li>
+    <li data-n="6"><b>Pads</b> — Tap a pad to play the sound assigned to it. The tapped pad also becomes the “current pad” used by other screens. Long-press a pad to quickly assign a sound from the temporary list.</li>
+  </ol>
+  <div class="footer">MS-12 Quick Manual — 1</div>
+</section>
+
+<!-- 2 -->
+<section class="page">
+  <h1>Pattern Production Workflow</h1>
+  <p class="lead">The basic steps for building one pattern on MS-12. See the following pages for details on each step.</p>
+  <ul class="steps">
+    <li><b>Record sounds with Sampling</b><span>Record an external source or the app’s own output and capture it as a sample (Sampling screen).</span></li>
+    <div class="arrow">↓</div>
+    <li><b>Edit the sound in Edit Sample</b><span>Edit the waveform and, if needed, split it into slices (Edit Sample screen).</span></li>
+    <div class="arrow">↓</div>
+    <li><b>Assign it to a pad</b><span>Assign the edited sound to a pad and set Tune, ADSR and other playback settings (Assign screen).</span></li>
+    <div class="arrow">↓</div>
+    <li><b>Record a sequence</b><span>Press REC on the TOP screen. After a 4-beat count-in, play the pads in time with the pattern to record your performance.</span></li>
+    <div class="arrow">↓</div>
+    <li><b>Edit it in Edit Seq</b><span>Adjust the position, velocity and pitch of each recorded note (Edit Seq screen).</span></li>
+    <div class="arrow">↓</div>
+    <li><b>(Optional) Add effects to pads</b><span>Apply effects such as Tape Echo, Reverb or EQ to each pad as needed (Effect screen).</span></li>
+    <div class="arrow">↓</div>
+    <li><b>Balance the mix</b><span>Adjust the volume and pan of each pad to balance the whole pattern (Mix screen).</span></li>
+    <div class="arrow">↓</div>
+    <li><b>Write it out with Export</b><span>Export the finished pattern as a WAV file. Your track is complete.</span></li>
+  </ul>
+  <div class="note"><b>Tip:</b> To arrange several patterns into a full song, chain them on the <b>Song</b> screen. Save your work at any time with <b>SAVE</b> on the LCD.</div>
+  <div class="footer">MS-12 Quick Manual — 2</div>
+</section>
+
+<!-- 3 -->
+<section class="page">
+  <h1>Pad Controls &amp; Performance</h1>
+  <h3>BANK, mute and solo</h3>
+  <p><b>BANK</b> switches the 16 visible pads between banks <b>A–D</b> (64 pads in total, A1–D16).
+     Press <b>mute</b> (red frame) and then tap pads to mute or unmute them; press <b>solo</b> (yellow frame) and tap a pad to hear only that pad. While pads are muted or soloed, pressing the button again clears all mutes / solos. Muted pads are silent everywhere, including during sequence playback.</p>
+  <h3>Multi level / Multi Pitch</h3>
+  <figure class="short"><img src="images/multilevel.jpg" alt="Multi level"></figure>
+  <ol class="call">
+    <li data-n="1"><b>Source pad / Change Pad</b> — Shows the pad currently spread across the grid. <b>Change Pad</b> lets you pick another source pad.</li>
+    <li data-n="2"><b>Level pads (L1–L16)</b> — Each pad plays the source sound at a different velocity, from 6% (L1) to 100% (L16). In <b>Multi Pitch</b> mode the pads become <b>P1–P16</b>, from −7 to +8 semitones (P8 = original pitch).</li>
+    <li data-n="3"><b>Multi level / Multi Pitch</b> — Turn the mode on, then tap the source pad. The two modes cannot be on at the same time; they are available on the TOP screen only.</li>
+  </ol>
+  <h3>Recording a sequence (REC) and note repeat</h3>
+  <p>When stopped, <b>REC</b> plays a <b>4-beat count-in</b> (the count is shown on the button) and then starts playback and recording. During playback, REC punches in immediately; pressing it again stops recording while playback continues. A metronome clicks while recording. Hits are snapped to the grid set in Edit Seq (default 1/16; <b>none</b> = no quantize). With Multi level / Multi Pitch on, the velocity / pitch you play is recorded too.</p>
+  <p><b>note rep</b>: while on, holding a pad retriggers it in time with the BPM. The rate is chosen with the <b>REPEAT</b> menu that appears (1/4, 1/8, 1/16, 1/32; default 1/16).</p>
+  <p><b>undo</b> reverts the most recent sequence or pad change (sample assignment, slice-to-pad, Edit Sample “Apply”, Effect settings).</p>
+  <div class="footer">MS-12 Quick Manual — 3</div>
+</section>
+
+<!-- 4 -->
+<section class="page">
+  <h1>Sampling Screen</h1>
+  <p class="lead">Records an external input or the app’s own output and adds it to the temporary sound list. Open it with the <b>Sampling</b> button on the TOP screen.</p>
+  <figure class="tall"><img src="images/sampling.jpg" alt="Sampling screen"></figure>
+  <ol class="call">
+    <li data-n="1"><b>Audio Input / App Audio</b> — Choose whether to record an input such as the microphone, or the sound the app itself is playing (resampling). Choosing <b>App Audio</b> starts resampling immediately and returns to the TOP screen (see the next page). The folder icon loads an audio file from the Files app into the temporary list.</li>
+    <li data-n="2"><b>Input Device</b> — Select the microphone or external audio interface to use. <b>Rescan</b> re-detects newly connected devices.</li>
+    <li data-n="3"><b>Recording Channel</b> — Record in <b>Stereo</b>, or only the left (<b>Mono L</b>) or right (<b>Mono R</b>) channel.</li>
+    <li data-n="4"><b>Threshold</b> — When on, recording starts automatically once the input exceeds the threshold level (−60 to 0 dB, default about −20 dB).</li>
+    <li data-n="5"><b>Level meter (L / R)</b> — Shows the input level in real time; the white line marks the threshold.</li>
+    <li data-n="6"><b>ARM / Record Manually</b> — <b>ARM</b> puts the recorder on standby (“Waiting…”) until the threshold is crossed; press again to stop. <b>Record Manually</b> starts recording immediately. With Threshold off the button reads <b>Start Recording</b>.</li>
+    <li data-n="7"><b>REC GAIN</b> — Adjusts the input level from 0% to 200% (shown in dB). <b>0dB</b> resets it.</li>
+    <li data-n="8"><b>Manage Sounds</b> — Opens the list of recorded and imported sounds (next page).</li>
+  </ol>
+  <div class="footer">MS-12 Quick Manual — 4</div>
+</section>
+
+<!-- 5 -->
+<section class="page">
+  <h1>Resampling (App Audio)</h1>
+  <p class="lead">Records the sound the app itself plays — pads, patterns and effects — as a new sample, so you can play and record at the same time.</p>
+  <figure class="short"><img src="images/resamp_top.jpg" alt="Resampling in progress on the TOP screen"></figure>
+  <ul class="steps">
+    <li><b>Choose App Audio</b><span>On the Sampling screen, tap “App Audio”. Recording starts immediately and the app moves to the TOP screen.</span></li>
+    <li><b>Play</b><span>Tap the pads and press play / stop as usual. Everything you hear is recorded.</span></li>
+    <li><b>Finish</b><span>Press the blinking Sampling button once more. Recording stops and the result is saved to the temporary list (Sound 1, Sound 2…).</span></li>
+  </ul>
+  <ol class="call">
+    <li data-n="1"><b>Sampling (blinking red)</b> — Shows that resampling is in progress. Press it again to finish and save.</li>
+    <li data-n="2"><b>Other function buttons</b> — Dimmed and disabled until resampling is finished.</li>
+    <li data-n="3"><b>Pads / transport</b> — Still available during recording: play pads, run the pattern with play / stop, use note rep and REC.</li>
+  </ol>
+  <div class="note">In the trial version, resampling stops by itself when the recording limit (10 seconds) is reached, and the recorded part is saved. The full version has no limit.</div>
+  <div class="footer">MS-12 Quick Manual — 5</div>
+</section>
+
+<!-- 6 -->
+<section class="page">
+  <h1>Manage Sounds Screen</h1>
+  <p class="lead">Manages all recorded, imported and sliced sounds in the temporary list. Open it with <b>Manage Sounds</b> on the Sampling screen.</p>
+  <figure class="tall"><img src="images/sounds.jpg" alt="Manage Sounds screen"></figure>
+  <ol class="call">
+    <li data-n="1"><b>Temporary List</b> — All sounds made so far; the number of items is shown on the right.</li>
+    <li data-n="2"><b>Play</b> — Hold to audition the sound. The name and length are shown next to it.</li>
+    <li data-n="3"><b>Rename (pencil)</b> — Changes the sound’s name (you can also double-tap the name).</li>
+    <li data-n="4"><b>Duplicate</b> — Makes a copy of the sound.</li>
+    <li data-n="5"><b>Delete (trash)</b> — Removes the sound from the list. Pads that use it are set to NONE.</li>
+    <li data-n="6"><b>Delete Unassigned Sounds</b> — Deletes every sound that is not assigned to any pad.</li>
+    <li data-n="7"><b>Delete All Sounds</b> — Deletes all sounds in the list.</li>
+  </ol>
+  <div class="note">New recordings are named <b>Sound 1</b>, <b>Sound 2</b>… Duplicate names automatically get <code>_2</code>, <code>_3</code>… added.</div>
+  <div class="footer">MS-12 Quick Manual — 6</div>
+</section>
+
+<!-- 7 -->
+<section class="page">
+  <h1>Edit Sample Screen</h1>
+  <p class="lead">Edits a sampled sound on its waveform. Open it with the <b>Edit Sample</b> button on the TOP screen; it opens full screen.</p>
+  <figure><img src="images/editsample.jpg" alt="Edit Sample screen"></figure>
+  <ol class="call">
+    <li data-n="1"><b>Waveform</b> — The waveform of the sample being edited (stereo samples show L and R).</li>
+    <li data-n="2"><b>Zoom</b> — Zoom in and out (100–800%). You can also pinch, and scroll with two fingers.</li>
+    <li data-n="3"><b>Start / SelectRange / End</b> — Start point, length and end point of the selected range.</li>
+    <li data-n="4"><b>Sample selector</b> — The sample being edited. Tap to switch to another sound from the temporary list.</li>
+    <li data-n="5"><b>Edit</b> — Opens the edit menu (Slice, Reverse, etc.). See the next page.</li>
+    <li data-n="6"><b>Save as New Sample</b> — Saves the edited range as a new sample in the temporary list. For stereo samples, <b>Stereo Split (L/R)</b> also appears (it saves the left and right channels as two separate mono samples).</li>
+    <li data-n="7"><b>Undo / Redo</b> — Steps back and forward through edits on this screen.</li>
+    <li data-n="8"><b>Preview</b> — Hold to hear the edited result.</li>
+    <li data-n="9"><b>Apply</b> — Commits the edit. Every pad that uses this sample is updated.</li>
+    <li data-n="10"><b>Padcontrol panel Show / Hide</b> — Shows or hides the pad panel below. It folds away automatically while most edit panels are open, but stays open while the <b>Slice</b> panel is open.</li>
+    <li data-n="11"><b>Pad panel</b> — Select the bank and the pad whose sample you want to edit.</li>
+  </ol>
+  <div class="note"><b>Edit while the pattern plays.</b> <b>play / stop</b> in the transport section works on this screen, so you can start the pattern and keep editing. Press <b>Apply</b> to hear the edited sample in the pattern.</div>
+  <div class="footer">MS-12 Quick Manual — 7</div>
+</section>
+
+<!-- 8 -->
+<section class="page">
+  <h1>Edit Sample Menu</h1>
+  <p class="lead">The menu opened with the <b>Edit</b> button on the Edit Sample screen. Each function opens a parameter panel below the waveform.</p>
+  <figure class="tall"><img src="images/editmenu2.jpg" alt="Edit menu"></figure>
+  <ol class="call">
+    <li data-n="1"><b>Slice</b> — Splits the waveform across several pads (see the following pages). Mono samples only.</li>
+    <li data-n="2"><b>To Mono</b> — <b>New.</b> Converts a stereo sample to mono, keeping only the left or right channel (next page). Greyed out for samples that are already mono, as shown.</li>
+    <li data-n="3"><b>Reverse</b> — Plays the waveform backwards.</li>
+    <li data-n="4"><b>Normalize</b> — Raises the level automatically so the peak reaches the target (Gain Increase 0–100%).</li>
+    <li data-n="5"><b>Silence</b> — Makes the selected range silent.</li>
+    <li data-n="6"><b>Fadeout</b> — Gradually lowers the level towards the end of the range.</li>
+    <li data-n="7"><b>Fadeinterface</b> — Fade in: gradually raises the level from the start of the range.</li>
+    <li data-n="8"><b>Time Stretch</b> — Changes the length (50–150%) while keeping the pitch.</li>
+    <li data-n="9"><b>Trim</b> — Keeps only the selected range and removes the rest (drag the handles or enter Start / End). Scroll the menu to show it.</li>
+  </ol>
+  <div class="note">Edits are processed in the order To Mono → Trim → Time Stretch → Fade In → Fade Out → Silence → Normalize → Reverse. Trim is applied only while the Trim panel is open when you press Preview or Apply.</div>
+  <div class="footer">MS-12 Quick Manual — 8</div>
+</section>
+
+<!-- 9 -->
+<section class="page">
+  <h1>To Mono — Stereo to Mono</h1>
+  <p class="lead">Converts a stereo sample into a mono sample by keeping one channel. Open it with <b>Edit</b> → <b>To Mono</b> on a stereo sample.</p>
+  <figure><img src="images/tomono.jpg" alt="To Mono"></figure>
+  <ol class="call">
+    <li data-n="1"><b>To Mono</b> — The edit menu (now showing To Mono). The panel opens with <b>L (Left)</b> selected.</li>
+    <li data-n="2"><b>Off / L (Left) / R (Right)</b> — Choose which channel to keep. <b>Off</b> leaves the sample stereo.</li>
+    <li data-n="3"><b>Preview / Apply</b> — Hold <b>Preview</b> to listen. <b>Apply</b> replaces the sample with the mono version.</li>
+  </ol>
+  <div class="note">After applying, the waveform changes from two rows (L / R) to one, and <b>Slice</b>, which needs a mono sample, becomes available. It can be combined with Trim, Fade, Normalize and the other edits. To keep both channels as separate samples instead, use <b>Stereo Split (L/R)</b>.</div>
+  <div class="footer">MS-12 Quick Manual — 9</div>
+</section>
+
+<!-- 10 -->
+<section class="page">
+  <h1>Slice Function ① — Basics</h1>
+  <p class="lead">Splits one sample into several sounds and assigns them to separate pads. Open it with <b>Edit</b> → <b>Slice</b>.</p>
+  <figure><img src="images/slice1.jpg" alt="Slice"></figure>
+  <ol class="call">
+    <li data-n="1"><b>Sample</b> — The source sample to slice.</li>
+    <li data-n="2"><b>Slice</b> — The edit menu (now showing Slice).</li>
+    <li data-n="3"><b>Save as New Sample</b> — Saves the unsliced sample as a new sample.</li>
+    <li data-n="4"><b>Manual</b> — Add slice markers by hand while listening (next page).</li>
+    <li data-n="5"><b>Auto</b> — Analyzes the waveform and places slice points automatically (next page).</li>
+    <li data-n="6"><b>Preview</b> — Hold to listen.</li>
+    <li data-n="7"><b>Apply</b> — Commits the edit.</li>
+  </ol>
+  <h3>Manual slicing</h3>
+  <p>Choose <b>Manual</b>. The pad panel stays open while the Slice panel is shown (see the next page). Tap the <b>leftmost pad</b> to play the sample once; while it plays, tap the <b>other pads</b> to drop markers (<b>M1, M2…</b>) at the playback position. The marker list shows each position (m:ss.sss); ⊗ deletes a marker and the trash button clears them all. <b>Back to Selection</b> returns to the Manual / Auto choice.</p>
+  <div class="footer">MS-12 Quick Manual — 10</div>
+</section>
+
+<!-- 11 -->
+<section class="page">
+  <h1>Slice Function — Pad Panel</h1>
+  <p class="lead">The pad panel is always shown while the Slice panel is open, so you can place markers with the pads right away.</p>
+  <figure><img src="images/slicemanual.jpg" alt="Manual slice with the pad panel"></figure>
+  <ol class="call">
+    <li data-n="1"><b>Pad panel</b> — Stays visible during slicing. Tap the leftmost pad (A1) to start playback, then tap the other pads to add markers.</li>
+    <li data-n="2"><b>Pad Slice</b> — The instruction for the Manual mode. <b>Back to Selection</b> returns to the Manual / Auto choice.</li>
+    <li data-n="3"><b>Padcontrol panel Show / Hide</b> — For other edit panels (Trim, Fade, To Mono, etc.) the pad panel folds away while the panel is open; Slice keeps it open.</li>
+  </ol>
+  <div class="note">Because <b>play / stop</b> also works on this screen, you can run the pattern while you slice a sample.</div>
+  <div class="footer">MS-12 Quick Manual — 11</div>
+</section>
+
+<!-- 12 -->
+<section class="page">
+  <h1>Slice Function ② — Auto Slice</h1>
+  <p class="lead">Choose <b>Auto</b> to analyze changes in level and detect slice points automatically.</p>
+  <figure><img src="images/autoslice.jpg" alt="Auto slice"></figure>
+  <ol class="call">
+    <li data-n="1"><b>Sensitivity</b> — Detection sensitivity (0–1). Moving it right detects smaller changes and produces more slices.</li>
+    <li data-n="2"><b>Candidates</b> — The number of slice candidates found at the current sensitivity.</li>
+    <li data-n="3"><b>Auto Slice</b> — Runs the analysis and places the slice markers on the waveform.</li>
+    <li data-n="4"><b>Candidate lines</b> — Orange lines preview where slices will be placed.</li>
+  </ol>
+  <div class="note">If no slice can be detected, raise the sensitivity and try again. Detected points are at least 60 ms apart.</div>
+  <div class="footer">MS-12 Quick Manual — 12</div>
+</section>
+
+<!-- 13 -->
+<section class="page">
+  <h1>Slice Function ③ — Editing Zones</h1>
+  <p class="lead">Once markers exist, the sample is divided into colour-coded zones and the pads become zone pads (Z1, Z2…).</p>
+  <figure><img src="images/zones.jpg" alt="Slice zones"></figure>
+  <ol class="call">
+    <li data-n="1"><b>Markers (M1, M2…)</b> — Slice boundaries. Drag a marker left or right to adjust it.</li>
+    <li data-n="2"><b>Selected zone</b> — The zone chosen with a zone pad is highlighted.</li>
+    <li data-n="3"><b>Add Marker to This Zone</b> — Splits the selected zone in the middle.</li>
+    <li data-n="4"><b>Delete This Zone</b> — Merges the selected zone with its neighbour.</li>
+    <li data-n="5"><b>Pad Assign</b> — Assigns all slices to pads in one go (next page).</li>
+    <li data-n="6"><b>Add to temporary (n)</b> — Adds all slices to the temporary list (the count is shown).</li>
+    <li data-n="7"><b>Undo / Redo</b> — Reverts marker edits.</li>
+    <li data-n="8"><b>Preview</b> — Hold to listen.</li>
+    <li data-n="9"><b>Save Zone as New Sample</b> — Saves only the selected zone as a new sample (<code>&lt;name&gt;_ZoneN</code>).</li>
+    <li data-n="10"><b>Zone pads (Z1…)</b> — Tap to hear a zone and select it for editing.</li>
+  </ol>
+  <div class="footer">MS-12 Quick Manual — 13</div>
+</section>
+
+<!-- 14 -->
+<section class="page">
+  <h1>Slice Function ④ — Assigning to Pads</h1>
+  <p class="lead">Use <b>Pad Assign</b> to place all slices onto pads at once.</p>
+  <figure><img src="images/padassign.jpg" alt="Pad Assign"></figure>
+  <ol class="call">
+    <li data-n="1"><b>Assign destination – Bank Select</b> — Shows how many slices will be assigned. Slices beyond the 16 pads of one bank continue automatically into the next bank.</li>
+    <li data-n="2"><b>Assign to Bank A / B / C / D</b> — Choose the first bank. The slices are placed in order on its pads (A1, A2…), named <code>slice1</code>, <code>slice2</code>… and added to the temporary list.</li>
+  </ol>
+  <div class="footer">MS-12 Quick Manual — 14</div>
+</section>
+
+<!-- 15 -->
+<section class="page">
+  <h1>Assign Screen</h1>
+  <p class="lead">Assigns a sound to each pad and sets how it plays. Press the <b>Assign</b> button on the TOP screen: the pads stay on the left and the settings of the selected pad appear on the right. Tap another pad to switch to it.</p>
+  <figure><img src="images/assign_new.jpg" alt="Assign screen"></figure>
+  <ol class="call">
+    <li data-n="1"><b>Pads</b> — Tap a pad to select it (red frame) and hear it. The settings on the right always belong to the selected pad.</li>
+    <li data-n="2"><b>Pad Settings</b> — The selected pad and its sample name. ▶ previews the pad.</li>
+    <li data-n="3"><b>Sound</b> — Choose the sample for this pad from <b>Sample Select…</b> (temporary list), or <b>none</b>. <b>Reset to Default</b> clears it.</li>
+    <li data-n="4"><b>Tune (Pitch)</b> — Raises or lowers the playback pitch in semitones (−24 to +24). Drag the slider or type a value in the large number box. The length changes with the pitch.</li>
+    <li data-n="5"><b>Select pads…</b> — Applies the tune to several pads at once (next page).</li>
+  </ol>
+  <p>Scroll the settings to reach the rest of the items (next page). The transport buttons (main, undo, note rep, play / stop, REC) stay at the bottom right.</p>
+  <div class="footer">MS-12 Quick Manual — 15</div>
+</section>
+
+<!-- 16 -->
+<section class="page">
+  <h1>Assign Screen — More Settings</h1>
+  <figure class="mini"><img src="images/assign_scroll.jpg" alt="Assign screen scrolled"></figure>
+  <ol class="call">
+    <li data-n="6"><b>Poly / Mono</b> — <b>Poly</b> lets notes overlap; <b>Mono</b> always plays only one note (a new hit cuts the previous one).</li>
+    <li data-n="7"><b>Mute Group</b> — Pads in the same group (1–8) stop each other when played — for example open/closed hi-hats.</li>
+    <li data-n="8"><b>Pad Link</b> — Choose other pads that play at the same time whenever this pad plays.</li>
+    <li data-n="9"><b>ADSR (Attack / Decay / Sustain / Release)</b> — Sets the volume envelope from the start of the sound until it fades. Attack is how fast it rises (0–1.5 s), Decay the initial drop (0–1.5 s), Sustain the held level (0–1), and Release the tail after the sound stops (0–2.5 s).</li>
+  </ol>
+  <h2>Tuning Several Pads at Once</h2>
+  <figure class="mini"><img src="images/assign_multi.jpg" alt="Selecting pads for tune"></figure>
+  <ol class="call">
+    <li data-n="1"><b>Select pads… / Done</b> — Press <b>Select pads…</b> to enter selection mode (the button turns red and reads <b>Done</b>). Press <b>Done</b> to leave it.</li>
+    <li data-n="2"><b>Target pads</b> — In selection mode, tap pads on the left to add or remove them (red frames). Tapping does not play the pad. The chosen pads are listed next to the button (“Also: A3, A6”).</li>
+  </ol>
+  <p>While pads are selected, the slider, the number box and <b>Reset tune</b> change the tune of the selected pad and all chosen pads together. A pad takes on the current tune value when it is added. The selection is cleared when you switch to another pad.</p>
+  <div class="footer">MS-12 Quick Manual — 16</div>
+</section>
+
+<!-- 17 -->
+<section class="page">
+  <h1>Edit Seq Screen</h1>
+  <p class="lead">Edits a recorded pattern step by step. Open it with the <b>Edit Seq</b> button on the TOP screen; it opens full screen. The grid shows the lane of the pad selected in the pad panel.</p>
+  <figure><img src="images/seqedit.jpg" alt="Edit Seq screen"></figure>
+  <ol class="call">
+    <li data-n="1"><b>Pad trigger</b> — Tap to write a note at the cursor (when stopped) or at the playback position (when playing).</li>
+    <li data-n="2"><b>Timeline</b> — Notes (events) for the selected pad. Brightness shows velocity; tap to select a note or move the cursor.</li>
+    <li data-n="3"><b>STEP / VELOCITY / TUNE / Target</b> — Position (bar.beat.tick), velocity (0–100%) and pitch (±24 st) of the selected note, adjustable on the spot. <b>Reset</b> restores 100% / ±0.</li>
+    <li data-n="4"><b>Pattern</b> — Choose the pattern to edit; <b>+</b> adds, then duplicate, rename and delete.</li>
+    <li data-n="5"><b>Bars</b> — Pattern length, 1–4 bars (default 2).</li>
+    <li data-n="6"><b>Grid</b> — Grid resolution: 1/4, 1/8, 1/16, 1/32, 1/64 or none. Also used to quantize realtime recording.</li>
+    <li data-n="7"><b>Apply</b> — Quantizes the selected note to the grid.</li>
+    <li data-n="8"><b>Insert Event / Delete Event / All Clear</b> — Add a note at the cursor, delete the selected note, or clear every note of this pad in the pattern.</li>
+    <li data-n="9"><b>◀ Move / Move ▶ / Previous Event / Next Event</b> — Move the selected note one grid step, or jump to the previous / next note.</li>
+    <li data-n="10"><b>« / »</b> — Move the cursor one grid step.</li>
+    <li data-n="11"><b>Now</b> — Current playback position and progress.</li>
+    <li data-n="12"><b>Pad panel</b> — Switch the pad (track) you are editing.</li>
+    <li data-n="13"><b>Transport</b> — undo, main, note rep, play / stop and REC work here as on the TOP screen.</li>
+  </ol>
+  <div class="note">Long-press the <b>Edit Seq</b> button to open <b>Delete PAD Events</b>, which clears all notes of the selected pads in the current pattern (samples stay assigned; undo restores them).</div>
+  <div class="footer">MS-12 Quick Manual — 17</div>
+</section>
+
+<!-- 18 -->
+<section class="page">
+  <h1>Song Mode Screen</h1>
+  <p class="lead">Chains several patterns to set the playback order of a whole song. Open it with the <b>Song</b> button on the TOP screen.</p>
+  <figure class="tall"><img src="images/song.jpg" alt="Song mode"></figure>
+  <ol class="call">
+    <li data-n="1"><b>Playback</b> — Play and stop the song with <b>play / stop</b> on the TOP screen. During playback, “Playback: n / N” shows the current position.</li>
+    <li data-n="2"><b>Patterns</b> — The list of patterns. Tap ⊕ to append a pattern to the song.</li>
+    <li data-n="3"><b>Song arrangement</b> — The playback order. Drag items to reorder them; the playing item turns green.</li>
+    <li data-n="4"><b>Remove (⊖)</b> — Removes an item from the song (you can also swipe).</li>
+    <li data-n="5"><b>Delete All</b> — Removes every item from the song.</li>
+  </ol>
+  <div class="note">Each item plays once, then the next one; playback stops after the last item. While Song is selected, play on the TOP screen plays the song. Opening Edit Seq or choosing a pattern on the LCD returns to pattern playback.</div>
+  <div class="footer">MS-12 Quick Manual — 18</div>
+</section>
+
+<!-- 19 -->
+<section class="page">
+  <h1>Effect Screen</h1>
+  <p class="lead">Applies effects to the sound of each pad. Open it with the <b>Effect</b> button on the TOP screen.</p>
+  <figure class="tall"><img src="images/effect1.jpg" alt="Effect screen"></figure>
+  <ol class="call">
+    <li data-n="1"><b>Select Pads</b> — Tap a pad to choose (and hear) the pad to process.</li>
+    <li data-n="2"><b>Group Select</b> — Select several pads at once. <b>Select All</b> / <b>Clear</b> help with selection, and <b>Apply</b> copies the current pad’s effect settings to all selected pads.</li>
+    <li data-n="3"><b>Effect settings for …</b> — Sets the effect types and parameters for the selected pad(s) (next page).</li>
+    <li data-n="4"><b>Sound Type Settings</b> — Sets the lo-fi character of the pads (Aliasing, Ring Mod, Compressor, Saturation, Punch).</li>
+  </ol>
+  <div class="note">Signal chain per pad: Sound Type (Aliasing → Saturation → Punch → Ring Mod → Compressor) → EFFECT 1 → EFFECT 2 → ADSR → velocity / pitch → volume / pan.</div>
+  <div class="footer">MS-12 Quick Manual — 19</div>
+</section>
+
+<!-- 20 -->
+<section class="page">
+  <h1>Effect Type Screen</h1>
+  <figure class="short"><img src="images/effect2.jpg" alt="Effect type"></figure>
+  <div class="cols">
+  <div>
+  <ol class="call">
+    <li data-n="1"><b>EFFECT 1</b> — Effect type of the first slot.</li>
+    <li data-n="2"><b>EFFECT 2</b> — Effect type of the second slot (applied after EFFECT 1).</li>
+    <li data-n="3"><b>Slot on / off (1, 2)</b> — Bypass or enable each slot.</li>
+    <li data-n="4"><b>Preview</b> — Tap to hear the pad with its effects.</li>
+    <li data-n="5"><b>Reset (↺)</b> — Returns the effect to its default values.</li>
+    <li data-n="6"><b>Presets</b> — <b>Save</b> stores the current settings under a name; tap a preset to recall it, long-press to delete it.</li>
+    <li data-n="7"><b>Effect switch</b> — Turns the effect on or off.</li>
+    <li data-n="8"><b>Parameters</b> — Adjust each parameter (long-press a value to type it).</li>
+  </ol>
+  </div>
+  <div>
+  <table>
+    <tr><th>Type</th><th>Parameters (default)</th></tr>
+    <tr><td>TAPE ECHO</td><td>Time 30–1200 ms (280), Feedback 0–92% (38), Mix (28)</td></tr>
+    <tr><td>DELAY</td><td>Time (350 ms), Feedback (30), Mix (35)</td></tr>
+    <tr><td>REVERB</td><td>Decay (50%), Damping (50), Mix (35)</td></tr>
+    <tr><td>CHORUS</td><td>Rate 0.1–5 Hz (0.8), Depth (45%), Mix (35%)</td></tr>
+    <tr><td>FLANGER</td><td>Rate (0.35 Hz), Depth (65), Mix (35)</td></tr>
+    <tr><td>PHASER</td><td>Rate (0.45 Hz), Depth (55), Mix (35)</td></tr>
+    <tr><td>TREMOLO/PAN</td><td>Rate 0.1–12 Hz (4.5), Depth (70), Mix (65)</td></tr>
+    <tr><td>DISTORTION</td><td>Drive 1–12× (4.5), Tone (55%), Mix (70%)</td></tr>
+    <tr><td>OVERDRIVE</td><td>Drive (2.6), Tone (60), Mix (65)</td></tr>
+    <tr><td>FUZZ</td><td>Drive (7), Tone (45), Mix (75)</td></tr>
+    <tr><td>WAH</td><td>Rate (1.1 Hz), Depth (70), Mix (55)</td></tr>
+    <tr><td>ISOLATOR</td><td>Low / Mid / High −24…+12 dB (0), Mix (100%)</td></tr>
+    <tr><td>4 BAND EQ</td><td>120 Hz / 700 Hz / 3.2 kHz / 8.5 kHz, ±12 dB (0)</td></tr>
+  </table>
+  </div>
+  </div>
+  <div class="footer">MS-12 Quick Manual — 20</div>
+</section>
+
+<!-- 21 -->
+<section class="page">
+  <h1>Sound Type Screen</h1>
+  <p class="lead">Sets the lo-fi “character” of the pads. Open it from <b>Sound Type Settings</b> on the Effect screen.</p>
+  <div class="pair"><img src="images/soundtype.jpg" alt="Sound type" style="max-height:92mm"></div>
+  <ol class="call">
+    <li data-n="1"><b>Preset Manager</b> — Save the current settings as a preset, or load / delete saved presets.</li>
+    <li data-n="2"><b>Group Select</b> — Choose which pads the settings apply to. Without a group selection, settings apply to <b>all pads</b>.</li>
+    <li data-n="3"><b>Sound check</b> — Choose the pad used for previewing.</li>
+    <li data-n="4"><b>Preview</b> — Hold to hear the pad.</li>
+    <li data-n="5"><b>Effect slots</b> — Tap a slot to open its settings: SLOT 1 Aliasing, 2 Ring Mod, 3 Compressor, 4 Saturation, 5 Punch.</li>
+    <li data-n="6"><b>Slot on / off</b> — Enable or bypass each slot.</li>
+  </ol>
+  <div class="cols" style="margin-top:2mm">
+  <div><img src="images/aliasing.jpg" alt="Aliasing" style="width:100%; border-radius:2mm; box-shadow:0 0 0 1px #d9d4c2"></div>
+  <div>
+  <ol class="call" style="font-size:9pt">
+    <li data-n="1"><b>Slot switch</b> — Turns Aliasing on / off.</li>
+    <li data-n="2"><b>Rate</b> — Sample rate, 8,000–44,100 Hz (26,040).</li>
+    <li data-n="3"><b>Bit</b> — Bit depth, 4–32 bit (12).</li>
+    <li data-n="4"><b>Amount</b> — Effect depth, 0–100%.</li>
+  </ol>
+  </div>
+  </div>
+  <table>
+    <tr><th>Slot</th><th>Parameters (default)</th></tr>
+    <tr><td>Ring Mod</td><td>Freq 1–2000 Hz (120), Mix (35%)</td></tr>
+    <tr><td>Compressor</td><td>Threshold −48…0 dB (−18), Ratio 1–20:1 (4), Gain 0–18 dB (+6), Mix (100%)</td></tr>
+    <tr><td>Saturation</td><td>Drive 0–6 dB (2.0), Soft Clip (35%), Tape Sat (18%)</td></tr>
+    <tr><td>Punch</td><td>80 Hz 0–9 dB (+3), 1 kHz −4…−2 dB (−3), 8 kHz 0–9 dB (+3)</td></tr>
+  </table>
+  <div class="footer">MS-12 Quick Manual — 21</div>
+</section>
+
+<!-- 22 -->
+<section class="page">
+  <h1>Mix Screen (Mixer)</h1>
+  <p class="lead">Adjusts the volume balance of the pads. Open it with the <b>Mix</b> button on the TOP screen; it opens full screen.</p>
+  <figure><img src="images/mix.jpg" alt="Mixer"></figure>
+  <ol class="call">
+    <li data-n="1"><b>PAD BANK</b> — Switch the bank (A–D) to adjust.</li>
+    <li data-n="2"><b>Reset</b> — Returns the faders and pans of the current bank to 100% / centre.</li>
+    <li data-n="3"><b>PAN</b> — Sets the left / right position (L100 – C – R100). Long-press to type a value.</li>
+    <li data-n="4"><b>Volume fader</b> — Sets each pad’s volume from 0% to 150% (the value turns orange above 100%). Long-press to type a value.</li>
+    <li data-n="5"><b>Level meter</b> — Shows the output level of the pad (−60 to 0 dBFS, with peak hold).</li>
+    <li data-n="6"><b>Play</b> — Hold to audition the pad.</li>
+    <li data-n="7"><b>‹ / ›</b> — Show the previous / next 4 channels (you can also swipe).</li>
+    <li data-n="8"><b>main</b> — Return to the TOP screen.</li>
+  </ol>
+  <div class="footer">MS-12 Quick Manual — 22</div>
+</section>
+
+<!-- 23 -->
+<section class="page">
+  <h1>Saving &amp; Loading</h1>
+  <h3>SAVE (Project Save)</h3>
+  <figure class="mini"><img src="images/save.jpg" alt="Save"></figure>
+  <ol class="call">
+    <li data-n="1"><b>Save</b> — Saves with the current settings (<b>Cancel</b> closes the sheet).</li>
+    <li data-n="2"><b>SaveMode</b> — <b>Project</b> saves the whole project; <b>Samples Only</b> saves selected sounds as WAV files into a folder in Sound.</li>
+    <li data-n="3"><b>Save destination</b> — Project name (default <code>Project_yyyyMMdd_HHmmss</code>). When a project is open you can choose <b>Overwrite</b> or <b>New File</b>.</li>
+    <li data-n="4"><b>Sample(WAV) also Save</b> — Also saves the assigned samples as WAV. Turn off to save only patterns and settings.</li>
+  </ol>
+  <h3>LOAD (Project / Sound Load)</h3>
+  <figure class="mini"><img src="images/load.jpg" alt="Load"></figure>
+  <ol class="call">
+    <li data-n="1"><b>Load Item</b> — <b>Project</b> lists saved projects (newest first; swipe left to delete). <b>Sounds</b> loads single sounds.</li>
+    <li data-n="2"><b>Choose a sound file on this iPhone</b> — Loads a WAV / MP3 / AIFF / CAF / M4A file from the Files app into the current pad.</li>
+    <li data-n="3"><b>Sound list</b> — Audio files in the app’s Sound folder; tap one to load it into the current pad and the temporary list.</li>
+    <li data-n="4"><b>Preview</b> — Plays the file.</li>
+  </ol>
+  <div class="footer">MS-12 Quick Manual — 23</div>
+</section>
+
+<!-- 24 -->
+<section class="page">
+  <h1>Export</h1>
+  <p class="lead">Writes a pattern to a WAV file. Press the <b>Export</b> button on the TOP screen.</p>
+  <figure class="short"><img src="images/export.jpg" alt="Export"></figure>
+  <ol class="call">
+    <li data-n="1"><b>Export</b> — Opens “Select a sequence to export”.</li>
+    <li data-n="2"><b>Pattern buttons</b> — Choose the pattern to write out. The result (file path and length) is shown when finished.</li>
+  </ol>
+  <p>Exports are 44.1 kHz / 16-bit mono WAV files and include all pad effects, mute groups, Mono cuts and pad links. Mute / solo states are not applied. The file length runs to the end of the last sound.</p>
+
+  <h2>Where Files Are Saved</h2>
+  <p>All data is stored in the app’s folder, visible in the Files app under <b>On My iPhone › MS-12</b>.</p>
+  <table>
+    <tr><th>Folder</th><th>Contents</th></tr>
+    <tr><td><code>Project/&lt;name&gt;/</code></td><td>Projects: <code>project.json</code> and a <code>Samples</code> folder with the WAV files</td></tr>
+    <tr><td><code>Sound/</code></td><td>Imported sounds and “Samples Only” saves (sub-folders allowed)</td></tr>
+    <tr><td><code>Export/</code></td><td>Exported patterns (<code>&lt;PatternName&gt;.wav</code>; <code>_1</code>, <code>_2</code> are added if the name exists)</td></tr>
+  </table>
+  <p>A project stores the BPM, patterns, song order, pad assignments and every pad setting (volume, pan, tune, ADSR, voice mode, mute group, links and effects). Mute / solo states and unassigned temporary sounds are not saved.</p>
+  <div class="footer">MS-12 Quick Manual — 24</div>
+</section>
+
+<!-- 25 -->
+<section class="page">
+  <h1>Trial Version &amp; Specifications</h1>
+  <h3>Trial version</h3>
+  <p>In the trial version, locked features show a lock icon and open the purchase screen (<b>UNLOCK</b> / <b>Restore Purchase</b>). The full version is a one-time purchase, and everything made in the trial carries over.</p>
+  <table>
+    <tr><th>Feature</th><th>Trial</th><th>Full version</th></tr>
+    <tr><td>Pad banks</td><td>Bank A only</td><td>Banks A–D (64 pads)</td></tr>
+    <tr><td>Patterns / bars</td><td>1 pattern, 1 bar</td><td>Unlimited patterns, 1–4 bars</td></tr>
+    <tr><td>Sampling length</td><td>Up to 10 s per sample (resampling also stops automatically at the limit)</td><td>No limit</td></tr>
+    <tr><td>Effects</td><td>NONE, TAPE ECHO, 4 BAND EQ</td><td>All effects</td></tr>
+    <tr><td>Song mode, Export, Save / Load, file import</td><td>Locked</td><td>Available</td></tr>
+  </table>
+  <h3>Specifications</h3>
+  <table>
+    <tr><th>Item</th><th>Details</th></tr>
+    <tr><td>Pads</td><td>4 banks × 16 pads = 64 pads (A1–D16)</td></tr>
+    <tr><td>Tempo</td><td>40–240 BPM (default 120)</td></tr>
+    <tr><td>Pattern length</td><td>1–4 bars (default 2); 96 ticks per beat</td></tr>
+    <tr><td>Grid / quantize</td><td>1/4, 1/8, 1/16, 1/32, 1/64, none</td></tr>
+    <tr><td>Count-in</td><td>4 beats before realtime recording</td></tr>
+    <tr><td>Note repeat</td><td>1/4, 1/8, 1/16, 1/32</td></tr>
+    <tr><td>Per-pad settings</td><td>Tune ±24 st, ADSR, Poly / Mono, Mute Group 1–8, Pad Link, Volume 0–150%, Pan L100–R100</td></tr>
+    <tr><td>Effects per pad</td><td>Sound Type (5 slots) + EFFECT 1 / EFFECT 2 (13 effect types)</td></tr>
+    <tr><td>Audio import</td><td>WAV, MP3, AIFF, CAF, M4A</td></tr>
+    <tr><td>Export</td><td>WAV, 44.1 kHz, 16-bit, mono</td></tr>
+  </table>
+  <div class="footer">MS-12 Quick Manual — 25</div>
+</section>
+
+</body>
+</html>
